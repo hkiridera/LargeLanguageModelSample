@@ -9,6 +9,12 @@ conda info --envs
 conda env list
 ```
 
+- condaの環境から抜ける
+```
+conda deactivate
+```
+
+
 - jupyter notebookの起動
 ```
 jupyter notebook

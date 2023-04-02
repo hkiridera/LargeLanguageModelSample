@@ -9,9 +9,12 @@ M1 Mac用の機械学習開発環境を整えるために、Miniforgeを活用�
 MiniforgeはM1 Macで機械学習用のPython環境構築によく使われるパッケージマネージャ．  
 Condaみたいな感じで，複数のConda環境(仮想環境)を作成できる．
 
+> MacOSを13.3にアップグレードする必要があります。
+
 ## 依存パッケージ
 ```
 $ brew install git-lfs
+$ brew install md5sha1sum
 ```
 
 ## miniforge
@@ -72,9 +75,11 @@ $ brew install git-lfs
 - よく使うパッケージ類を色々インストール
   ```
   $ conda install -c conda-forge scikit-learn -y
-  $ conda install -c conda-forge pandas -y
+  $ conda install -c conda-forge pandas jupyter jupyterlab -y
   $ conda install -c pytorch pytorch torchvision -y
   $ conda install -c conda-forge sentencepiece -y
+  $ conda install -c conda-forge ipywidgets -y
+  $ pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cpu
   ```
 
 - transformersはv4.27.0にバグがありLLaMaのtokenizerのファイル名が誤っているため動作せず。ソースから最新版を取得した。
@@ -89,13 +94,6 @@ $ brew install git-lfs
   ```
 
 ## Jupyter notebook
-
-- 
-  ```
-  $ conda install -c conda-forge jupyterlab -y
-  $ conda install -c ipywidgets -y
-  ```
-
 - 起動
   ```
   $ jupyter notebook
@@ -114,3 +112,13 @@ $ brew install git-lfs
 - Vicuna 13B
   - チャット対応
     - https://github.com/lm-sys/FastChat
+
+
+# トラブルシューティング
+- M1 MacでGPUを使う時に発生する`error message: MPS does not support cumsum op with int64 input`エラーの解決策.  
+  MacOS13.3にアップデートし、次のパッケージをインストールする。  
+  ```
+  pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cpu
+  ```
+  - 参考情報  
+  `https://github.com/pytorch/pytorch/issues/96610`
